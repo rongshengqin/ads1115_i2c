@@ -122,21 +122,21 @@ int  i2c_send_byte(uint8_t byte){
 		 __asm__ __volatile__ ("nop");
 	}
     gpio_set_level_fast(sda,1);
-    gpio_set_direction(sda,GPIO_MODE_INPUT);
+    //gpio_set_direction(sda,GPIO_MODE_INPUT);
     //os_delay_us(0.01);
 	__asm__ __volatile__ ("nop");
     gpio_set_level_fast(scl,1);
-    int ack=gpio_get_level(sda);
+    //int ack=gpio_get_level(sda);
     //os_delay_us(0.02);
 	__asm__ __volatile__ ("nop");
 	//__asm__ __volatile__ ("nop");
     gpio_set_level_fast(scl,0);
-	gpio_set_direction(sda,GPIO_MODE_OUTPUT);
+	//gpio_set_direction(sda,GPIO_MODE_OUTPUT);
     //os_delay_us(0.01);
 	//__asm__ __volatile__ ("nop");
     // if (ack)
         // printf("device no response!\n");
-    return ack;
+    return 0;
 }
 void i2c_send_cmd(uint8_t reg,uint8_t cmd){
     i2c_start();
