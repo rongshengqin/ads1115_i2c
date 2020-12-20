@@ -28,7 +28,7 @@ typedef enum
 } ssd1306_color_t;
 
 int  i2c_send_byte(uint8_t byte);
-void i2c_send_cmd(uint8_t reg,uint8_t cmd);
+int  i2c_send_cmd(uint8_t reg,uint8_t cmd);
 int init_ssd1306(void);
 
 /**
@@ -48,8 +48,14 @@ inline int ssd1306_clear_screen(const ssd1306_t *dev)
 {
     return ssd1306_load_frame_buffer(dev, NULL);
 }
-
+void ssd1306_clear_frame_buffer(const ssd1306_t *dev, uint8_t buf[]);
 int ssd1306_draw_pixel(const ssd1306_t *dev, uint8_t *fb, int8_t x, int8_t y, ssd1306_color_t color);
+int ssd1306_draw_hline(const ssd1306_t *dev, uint8_t *fb, int8_t x, int8_t y, uint8_t w, ssd1306_color_t color);
+int ssd1306_draw_circle(const ssd1306_t *dev, uint8_t *fb, int8_t x0, int8_t y0, uint8_t r, ssd1306_color_t color);
+int ssd1306_fill_circle(const ssd1306_t *dev, uint8_t *fb, int8_t x0, int8_t y0, uint8_t r, ssd1306_color_t color);
+int ssd1306_draw_triangle(const ssd1306_t *dev, uint8_t *fb, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, ssd1306_color_t color);
+int ssd1306_fill_triangle(const ssd1306_t *dev, uint8_t *fb, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, ssd1306_color_t color);
+int ssd1306_start_scroll_hori(const ssd1306_t *dev, uint8_t scroll_to_right, uint8_t start_page, uint8_t stop_page, uint8_t frame);
 /**
  * Draw one character using currently selected font
  * @param dev Pointer to device descriptor
@@ -62,6 +68,7 @@ int ssd1306_draw_pixel(const ssd1306_t *dev, uint8_t *fb, int8_t x, int8_t y, ss
  * @param background Background color
  * @return Width of the character or negative value if error occurred
  */
+
 int ssd1306_draw_char(const ssd1306_t *dev, uint8_t *fb, const font_info_t *font, uint8_t x, uint8_t y, char c, ssd1306_color_t foreground, ssd1306_color_t background);
 
 /**
